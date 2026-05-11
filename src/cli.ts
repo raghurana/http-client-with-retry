@@ -5,7 +5,7 @@ const NORMAL_DELAY_MS = 1000;
 const MAX_DELAY_MS = 10_000;
 
 const main = async () => {
-  const baseUrl = 'https://jsonplaceholder1.typicode.com'; // Butcher this URL to see retries in action (e.g., 'https://jsonplaceholder1.typicode.com')
+  const baseUrl = 'https://jsonplaceholder.typicode.com'; // Butcher this URL to see retries in action (e.g., 'https://jsonplaceholder1.typicode.com')
   const client = new HttpClient(baseUrl, {
     retry: {
       retries: 3,
