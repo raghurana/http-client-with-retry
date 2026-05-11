@@ -1,4 +1,5 @@
 import axios, { type AxiosError, type AxiosInstance, type AxiosResponse } from 'axios';
+import axiosRetry, { type IAxiosRetryConfig } from 'axios-retry';
 import http from 'node:http';
 import https from 'node:https';
 import { tryCatch } from './try-catch';
@@ -25,10 +26,11 @@ export type HttpResponse<TResBody = unknown, TError = Error> = {
 export class HttpClient {
   private readonly axiosInstance: AxiosInstance;
 
-  constructor(baseURL: string, options?: { caCertificates?: string[] }) {
+  constructor(baseURL: string, options?: { caCertificates?: string[]; retry?: boolean | IAxiosRetryConfig }) {
     const httpsAgentOptions = options?.caCertificates?.length ? { ca: options.caCertificates, rejectUnauthorized: false } : undefined;
     const agentConfig = baseURL.includes('https:') ? { httpsAgent: new https.Agent(httpsAgentOptions) } : { httpAgent: new http.Agent() };
     this.axiosInstance = axios.create({ baseURL, ...agentConfig });
+    if (options?.retry) axiosRetry(this.axiosInstance, typeof options.retry === 'object' ? options.retry : undefined);
   }
 
   get<Res = unknown>(url: string, queryParams?: Record<string, unknown>, headers?: HttpHeaders): Promise<HttpResponse<Res>> {
