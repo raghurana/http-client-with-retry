@@ -5,12 +5,12 @@
 
 ## Success 
 
-![Success](/assets/success.png))
+![Success](/assets/success.png)
 
 ## Failure
 
-![Failure](/assets/fail-1.png))
+![Failure](/assets/fail-1.png)
 
 A few moments later
 
-![Failure](/assets/fail-2.png))
+![Failure](/assets/fail-2.png)
